@@ -1,9 +1,9 @@
-from app.core.config import get_settings
+from app.services.ingestion import load_file, chunk_documents
+from pathlib import Path
+from app.rag.vectorstore import add_documents
 
-settings = get_settings()
+docs = load_file(Path("data\\sample_kb\\company_it_handbook.md"))  # Replace with the actual file path
+chunks = chunk_documents(docs)
 
-print(f"App Name: {settings.app_name}")
-print(f"App Environment: {settings.app_env}")
-print(f"Audit DB Path: {settings.audit_db_path}")
-print(f"Uploads Directory: {settings.uploads_dir}")
-print(f"Sample Knowledge Base Directory: {settings.sample_kb_dir}")
+add_documents(chunks)
+print(chunks)
